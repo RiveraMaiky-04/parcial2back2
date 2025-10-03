@@ -1,0 +1,29 @@
+package com.example.parcial2.servicios;
+
+import com.example.parcial2.Cine;
+import com.example.parcial2.dtos.CineDTO;
+import com.example.parcial2.mapas.IMapaCine;
+import com.example.parcial2.repositorios.ICineRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CineServicio {
+    @Autowired
+    private ICineRepositorio repositorio;
+    @Autowired
+    private IMapaCine mapa;
+    //guardar
+
+    public CineDTO guardarCine(Cine datosCine) throws Exception {
+        try {
+            return this.mapa.convertirModeloADto(this.repositorio.save(datosCine));
+        } catch (Exception error) {
+            throw new Exception("Error" + error.getMessage());
+
+        }
+    }
+}
